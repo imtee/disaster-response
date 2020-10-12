@@ -18,6 +18,11 @@ from sklearn.metrics import f1_score, classification_report
 import pickle
 
 def load_data(database_filepath):
+    '''
+        loads the dataset from the database
+        Parameters: the file path of the database
+        Returns: the messages, categories, and list of category names   
+    '''  
     engine = create_engine('sqlite:///{}'.format(database_filepath))
     df = pd.read_sql_table('table_name', engine)
     categories = ['related', 'request', 'offer', 'aid_related', 'medical_help', 
@@ -33,6 +38,11 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
+    '''
+     process the text data: lemmatizing, case normalizing, and removing white spaces
+         Parameters: text 
+         Returns: clean tokens
+    '''
     #tokenize text
     tokens= word_tokenize(text)
     
@@ -50,13 +60,18 @@ def tokenize(text):
 
 
 def build_model():
+    '''
+        builds the machine learning model using pipeline and GridSearch
+        Parameters: none
+        Returns: the model
+    '''
     # This machine pipeline takes in the message column as input and output classification results
     pipeline = Pipeline([('vect', CountVectorizer(tokenizer=tokenize)), 
                      ('tfidf', TfidfTransformer()),
                      ('multi_clf', MultiOutputClassifier(RandomForestClassifier()))])
     
     parameters = {
-    'vect__ngram_range': ((1, 1), (1, 2)),
+    'vect__max_features': (None, 5000, 10000),
         }
     
     cv = GridSearchCV(pipeline, param_grid=parameters)
@@ -64,12 +79,22 @@ def build_model():
     return cv
 
 def evaluate_model(model, X_test, Y_test, category_names):
+    '''
+        Shows the accuracy, precision, and recall of the tuned model.
+        Parameters: The model, the test data input, test data output, and the category names
+        Returns: none
+    '''
     Y_pred = model.predict(X_test)
     for i, cat in enumerate(category_names):
      print(cat, classification_report(pd.DataFrame(Y_test)[i], pd.DataFrame(Y_pred)[i]))
 
 
 def save_model(model, model_filepath):
+    '''
+        saves the model in a pickle file
+        Parameters: the tuned model and its filepath 
+        Returns: none
+    '''
     pickle.dump(model, open(model_filepath, 'wb'))
 
 
