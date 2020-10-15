@@ -12,3 +12,11 @@
     `python run.py`
 
 3. Go to http://0.0.0.0:3001/
+
+In the terminal, use this command to get the link for vieweing the app:
+env | grep WORK
+
+The link wil be:
+http://WORKSPACESPACEID-3001.WORKSPACEDOMAIN replacing WORKSPACEID and WORKSPACEDOMAIN with your values.
+
+
