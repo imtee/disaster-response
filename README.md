@@ -57,7 +57,7 @@ This project is formed by three parts:
 
 ## Licensing, Authors, Acknowledgements<a name="licensing"></a>
 
-Must give credit to [Figure Eight](https://appen.com/) and [Udacity](https://www.udacity.com/) for the course. This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
+Must give credit to [Figure Eight](https://appen.com/) for the data and [Udacity](https://www.udacity.com/) for the course. This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
 
 
