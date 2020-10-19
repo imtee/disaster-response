@@ -39,7 +39,10 @@ def clean_data(df):
        categories[column] = categories[column].astype(str).str[-1]
     # convert column from string to numeric
        categories[column] = categories[column].astype(int)
-    
+    #convert related vategory to binary values, as it has "2" values
+    categories['related'].unique()
+    categories['related'] = categories['related'].astype(str).str.replace('2', '1')
+    categories['related'] = categories['related'].astype(int)
     # Replace categories column in df with new category columns
     # drop the original categories column from `df`
     df.drop(['categories'], axis=1, inplace=True)

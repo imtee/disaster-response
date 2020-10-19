@@ -46,8 +46,6 @@ def index():
     #Data for Figure 2
     category_names = df.columns[4:]
     categories= df[category_names]
-    categories['related'].astype(str).str.replace('2', '1')
-    categories['related'].astype(int)
     top_categories = categories.sum().sort_values(ascending=False)[:10]
     category_names = top_categories.index
     category_counts = top_categories.values
